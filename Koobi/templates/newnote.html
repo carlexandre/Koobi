@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}New Note{% endblock %}
+
+{% block main %}
+
+<div id="bodytext">
+    <form action="/newnote" method="post" class="form">
+        <div id="title-area">
+            <input tytpe="text" id="title" placeholder="Title" name="title" maxlength="30">
+        </div>
+        <div id="text-area">
+            <textarea name="text" id="text" placeholder="What's in your mind?"></textarea>
+        </div>
+        <button type="submit" id="save">Save</button>
+    </form>
+ </div>
+
+{% endblock %}
+

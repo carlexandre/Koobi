@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %} Notes {% endblock %}
+
+{% block main %}
+
+<div class="bodynotes">
+    <div class="novanota">
+        <a href="/newnote"><button class="add-note">New Note</button></a>
+    </div>
+
+    <div id="notes-container">
+        {% for note in notes %}
+            {% set id = note["id"] %}
+
+            <div class="each-note" id = "{{ id }}">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title" data-title="{{ id }}"><b>{{ note["title"] }}</b></h5>
+                        <p class="card-text">{{ note["note"] }}</p>
+                    </div>
+                    
+                    <div id="headercard">
+                        <button class="buttondelete" data-id="{{ id }}"><i class="bi bi-trash"></i></button>
+                        <p class="text-card"><small class="text-muted">{{ note["date"][0:16] }}</small></p>
+                        <a id="link" href="{{ url_for('edit', nota_id=id) }}"><button><i class="bi bi-pen"></i></button></a>
+                    </div>
+                </div>
+
+                <div class="modal-overlay" id="confirm-modal">
+                    <div class="modal-content">
+                        <h3>Delete?</h3>
+                        <div class="modal-buttons">
+                            <a id="linkdelete" href="{{ url_for('delete', nota_id=id) }}"><button id="confirm-delete">Yes</button></a>
+                            <button id="cancel-delete">Not</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.card-text').forEach(textElement => {
+        if (textElement.textContent.length > 390) {
+            textElement.closest('.card').classList.add('wide');
+        }
+    });
+
+    const modal = document.getElementById('confirm-modal');
+    const cancelButton = document.getElementById('cancel-delete');
+    const confirmButton = document.getElementById('confirm-delete');
+    const linkDelete = document.getElementById('linkdelete');
+
+    document.querySelectorAll('.buttondelete').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const noteId = event.target.closest('.buttondelete').getAttribute('data-id');
+            linkDelete.href = `/delete/${noteId}`;
+            modal.style.display = 'flex';
+        });
+    });
+
+    cancelButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+</script>
+
+{% endblock %}

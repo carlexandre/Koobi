@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block main %}
+
+
+<div class="bodylogin">
+    {% set messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+            <div class="alert alert-danger text-center" role="alert" id="flash-alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    {% endif %}
+
+    <div class="mainlogin">
+        <form action="/login" method="post">
+            <h1><b>Login</b></h1>
+            <div class="input-box">
+                <input placeholder="Username" type="text" name="username">
+                <i class="bx bxs-user"></i>
+            </div>
+            <div class="input-box">
+                <input placeholder="Password" type="password" name="password" id="password">
+                <i class="bx bxs-lock-alt" id="locked"></i>
+            </div>
+            <button type="submit" class="login">Log In</button>
+        </form>
+        <div class="register-link">
+            <p><b>Don't have a account? </b><a href="/register">Register</a></p>
+        </div>
+    </div> 
+</div>
+
+<script>
+    window.onload = function() {
+        const alert = document.getElementById('flash-alert');
+        const progressBar = document.getElementById('progress-bar');
+
+        setTimeout(() => {
+            progressBar.style.width = '0%';
+        }, 0);
+        
+        setTimeout(() => {
+            alert.remove();
+        }, 5000);
+    };
+
+    let locked = document.querySelector('#locked');
+
+    locked.addEventListener('click', function(){
+        let input = document.querySelector('#password')
+
+        if (input.getAttribute('type') == 'password'){
+            input.setAttribute('type', 'text');
+            locked.setAttribute('class', 'bx bxs-lock-open')
+        }
+        else{
+            input.setAttribute('type', 'password');
+            locked.setAttribute('class', 'bx bxs-lock-alt')
+        }
+    });
+
+</script>
+
+{% endblock %}

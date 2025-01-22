@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ notes[0]['title'] }} {% endblock %}
+
+{% block main %}
+
+    <div id="bodytext">
+        <form action="/edit/{{ notes[0]['id'] }}" method="post">
+            <div id="title-area">
+                <input tytpe="text" id="title" placeholder="Title" name="titleedit" maxlength="30" value="{{ notes[0]['title'] }}">
+            </div>
+            <div id="text-area">
+                <textarea name="textedit" id="text" placeholder="What's in your mind?">{{ notes[0]['note'] }}</textarea>
+            </div>
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+
+{% endblock %}
