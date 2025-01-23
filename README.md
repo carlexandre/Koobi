@@ -1,5 +1,5 @@
 # Koobi
-## Video Demo:  <URL HERE>
+## Video Demo: https://www.youtube.com/watch?v=vIiVtxHZ2S0&feature=youtu.be
 ## Description: 
 
 #### Koobi is a website that works like a notepad, where you can make notes on various subjects, such as thoughts, venting, passwords, poems, stories and much more.
